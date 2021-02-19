@@ -1,20 +1,3 @@
-function addItem(){
-    var ul = document.getElementById("dynamic-list");
-    var candidate = document.getElementById("candidate");
-    var li = document.createElement("li");
-    li.setAttribute('id',candidate.value);
-    li.appendChild(document.createTextNode(candidate.value));
-    ul.appendChild(li);
-}
-
-function removeItem(){
-    var ul = document.getElementById("dynamic-list");
-    var candidate = document.getElementById("candidate");
-    var item = document.getElementById(candidate.value);
-    ul.removeChild(item);
-}  
-
-
 //might be better to change the id of the li to a unique id to prevent hazards
 function addItemKen(){
     var ul = document.getElementById("ken-list");
@@ -33,26 +16,29 @@ function addItemKen(){
     button.setAttribute('class', 'removeBtn');
     button.innerHTML = '-';
 
-    if(ul.getElementsByTagName("li").length === 0)
-    ul.addEventListener("click", e => {
-        if(e.target && e.target.matches('button.removeBtn')){
-            console.log("remove from " + e.target.id + " " + e.target.nodeName);
-            var curr = document.getElementById(e.target.id);
-            if(curr !== null)
-                ul.removeChild(curr);
-            // removeItemKen(e.target.id);
-        }
-    })
+    if(typeof ul.hasListener == 'undefined'){
+        ul.hasListener = true;
+        ul.addEventListener("click", remove())
+    }
+
     //add input and button to li
     li.appendChild(input);
     li.appendChild(button);
 
     ul.appendChild(li);
+    candidate.value = "";
 }
 
-function removeItemKen(id){
-    var ul = document.getElementById("ken-list");
-    var li = document.getElementById(id);
-    if(li !== null)
-        ul.removeChild(li);
+    function remove(){
+    var handler = function(e){
+        if(e.target && e.target.matches('button.removeBtn')){
+            console.log("remove from " + e.target.id + " " + e.target.nodeName);
+            var curr = document.getElementById(e.target.id);
+            var ul = document.getElementById('ken-list');
+
+            if(curr !== null)
+                ul.removeChild(curr);
+        }
+    }
+    return handler;
 }
