@@ -28,18 +28,12 @@ function addItemKen(){
     var input = document.createElement("input");
     var button = document.createElement("button");
     input.setAttribute('value', candidate.value);
+    input.setAttribute('class', "textBox");
     button.setAttribute('id', candidate.value);
     button.setAttribute('class', 'removeBtn');
     button.innerHTML = '-';
-    // button.addEventListener('onclick', removeItemKen(candidate.value));
-    // button.setAttribute = ('onclick', removeItemKen(candidate.value));
-    // button.onclick = function() {
-    //     //create on delete function to put here;
-    //     console.log("delete pressed from li: " + candidate.value);
-    //     removeItemKen(candidate.value);
-    // };
 
-
+    if(ul.getElementsByTagName("li").length === 0)
     ul.addEventListener("click", e => {
         if(e.target && e.target.matches('button.removeBtn')){
             console.log("remove from " + e.target.id + " " + e.target.nodeName);
